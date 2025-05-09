@@ -78,3 +78,9 @@ python main.py
 - Hugging Face Transformers
   
 ---
+## 📬 Contact
+
+For queries or support, contact: a.inbaselvan@gmail.com
+
+---
+---
