@@ -1,4 +1,4 @@
-# Email-agent-ai
+# Email-Agent-AI
 
 An **AI-powered email agent** that reads unread emails from Gmail, detects spam, summarizes long messages, and automatically generates and sends polite, professional replies using LLMs — all without human intervention.
 
