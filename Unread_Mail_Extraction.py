@@ -7,7 +7,7 @@ import os
 import pickle
 from google.auth.transport.requests import Request  
 
-# 1. Scope for read-only access
+
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 creds = None
 if os.path.exists('token_read.pickle'):
@@ -21,7 +21,7 @@ if not creds or not creds.valid:
     else:
         flow = InstalledAppFlow.from_client_secrets_file('client.json', SCOPES)
         creds = flow.run_local_server(port=0)
-    # Save credentials for next run
+   
     with open('token_read.pickle', 'wb') as token:
         pickle.dump(creds, token)
 
@@ -39,7 +39,7 @@ def details():
             msg_id = msg['id']
             msg_data = service.users().messages().get(userId='me', id=msg_id, format='full').execute()
 
-            # Extract headers
+            
             headers = msg_data['payload']['headers']
             subject = sender = None
             for header in headers:
@@ -48,7 +48,7 @@ def details():
                 if header['name'] == 'From':
                     sender = header['value']
 
-            # Function to get and clean email body
+            
             def get_clean_body(payload):
                 parts = payload.get("parts")
                 body_data = None
@@ -62,7 +62,7 @@ def details():
                             if mime_type == "text/plain":
                                 return decoded.strip()
                             elif mime_type == "text/html":
-                                # Fallback if plain text not found
+                                
                                 soup = BeautifulSoup(decoded, "html.parser")
                                 body_data = soup.get_text().strip()
                 else:
@@ -79,7 +79,7 @@ def details():
 
             body = get_clean_body(msg_data['payload'])
 
-            # Print and store data
+           
             print("\n--- UNREAD EMAIL ---")
             print("From:", sender)
             print("Subject:", subject)
@@ -109,3 +109,4 @@ def main():
     email_details=details()
     print("Extracting process finished")
     return email_details
+
