@@ -6,6 +6,9 @@ import pickle
 import base64
 from email.mime.text import MIMEText
 
+sender_name="xyz" #modify it according to the requirement
+from_email="abc@gmail.com" #modify it according to the requirement
+
 def create_msg(sender,to ,subject, message_text):
     message = MIMEText(message_text)
     message['to'] = to
@@ -14,7 +17,7 @@ def create_msg(sender,to ,subject, message_text):
     raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
     return {'raw': raw}
 
-def send_email(to_email,email_content="Hello from Gmail API with OAuth!",sender_name="xyz"):
+def send_email(to_email,email_content="Hello from Gmail API with OAuth!"):
     
     SCOPES=['https://www.googleapis.com/auth/gmail.send']
 
@@ -40,7 +43,7 @@ def send_email(to_email,email_content="Hello from Gmail API with OAuth!",sender_
     email_content=email_content.replace("[Your Name]",sender_name)
     email_content=email_content.replace("[Recipient's Name]","sir/madam")
     print(email_content)
-    message = create_msg("a.inbaselvan@gmail.com",to_email, "Subject", email_content)
+    message = create_msg(from_email,to_email, "Subject", email_content)
     sent_message = service.users().messages().send(userId="me", body=message).execute()
     print(f'Message Id: {sent_message["id"]}')
 
